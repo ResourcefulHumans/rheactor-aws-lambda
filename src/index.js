@@ -1,5 +1,4 @@
 export * from './api'
 export * from './handler'
-export * from './util'
 export * from './operations/apiindex'
 export * from './operations/status'

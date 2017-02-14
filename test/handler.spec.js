@@ -50,9 +50,41 @@ describe('index', () => {
       })
   })
 
-  it('should send bad request if operation does not support method', done => {
+  it('should send method not allwed if unsupported method is used', done => {
     const path = '/status'
     const httpMethod = 'DELETE'
+    const body = JSON.stringify({})
+    handler(
+      contentType,
+      environment,
+      tokenSecretOrPrivateKey,
+      operations,
+      {
+        headers,
+        httpMethod,
+        path,
+        body
+      }, null, (err, res) => {
+        expect(err).to.equal(null)
+        expect(res.statusCode).to.equal(405)
+        expect(res.headers).to.deep.equal({
+          'Content-Type': contentType,
+          'Access-Control-Allow-Origin': '*'
+        })
+        const expectedProblem = new HttpProblem(new URIValue('https://github.com/ResourcefulHumans/rheactor-aws-lambda#Error'), 'Method not allowed: "DELETE"', 405)
+        const body = JSON.parse(res.body)
+        const sentProblem = HttpProblem.fromJSON(body)
+        expect(sentProblem.name).to.equal(expectedProblem.name)
+        expect(sentProblem.type.equals(expectedProblem.type)).to.equal(true)
+        expect(sentProblem.title).to.equal(expectedProblem.title)
+        expect(sentProblem.$context).to.equal(expectedProblem.$context)
+        done()
+      })
+  })
+
+  it('should send bad request if operation does not support method', done => {
+    const path = '/status'
+    const httpMethod = 'GET'
     const body = JSON.stringify({})
     handler(
       contentType,
@@ -71,7 +103,7 @@ describe('index', () => {
           'Content-Type': contentType,
           'Access-Control-Allow-Origin': '*'
         })
-        const expectedProblem = new HttpProblem(new URIValue('https://github.com/ResourcefulHumans/rheactor-aws-lambda#Error'), 'Unsupported action "DELETE /status"', 400)
+        const expectedProblem = new HttpProblem(new URIValue('https://github.com/ResourcefulHumans/rheactor-aws-lambda#Error'), 'Unsupported operation "GET /status"', 400)
         const body = JSON.parse(res.body)
         const sentProblem = HttpProblem.fromJSON(body)
         expect(sentProblem.name).to.equal(expectedProblem.name)

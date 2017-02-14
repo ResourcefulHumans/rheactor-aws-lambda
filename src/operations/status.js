@@ -7,8 +7,6 @@ import {Status} from 'rheactor-models'
  * @param {String} deployTime
  * @returns {Function}
  */
-export const statusOperation = (version, environment, deployTime) => {
-  return {
-    post: () => Promise.resolve(new Status('ok', new Date(), `${version}+${environment}.${deployTime}`))
-  }
-}
+export const statusOperation = (version, environment, deployTime) => ({
+  post: () => Promise.resolve(new Status('ok', new Date(), `${version}+${environment}.${deployTime}`))
+})

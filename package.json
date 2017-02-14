@@ -32,7 +32,6 @@
   "homepage": "https://github.com/ResourcefulHumans/rheactor-aws-lambda#readme",
   "peerDependencies": {
     "bluebird": "^3.4.7",
-    "joi": "^10.2.1",
     "jsonwebtoken": "^7.2.1",
     "rheactor-models": "3.x >=3.2.2",
     "rheactor-value-objects": "9.x >=9.0.1",

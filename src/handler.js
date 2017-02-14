@@ -1,6 +1,5 @@
 import Promise from 'bluebird'
 import {checkContentType, getOptionalToken} from './api'
-import Joi from 'joi'
 import {HttpProblem} from 'rheactor-models'
 import {URIValue} from 'rheactor-value-objects'
 
@@ -31,6 +30,8 @@ export function handler (contentType, environment, tokenSecretOrPrivateKey, oper
     })
   }
 
+  const allowedMethods = /^(GET|POST)$/
+
   Promise
     .try(() => {
       checkContentType(event, contentType)
@@ -38,10 +39,12 @@ export function handler (contentType, environment, tokenSecretOrPrivateKey, oper
       parts.shift()
       let operation = parts.shift()
       if (!operation.length || !operations[operation]) throw new HttpProblem(new URIValue('https://github.com/ResourcefulHumans/rheactor-aws-lambda#Error'), `Unknown operation "${event.path}"`, 404)
-      const v = Joi.validate(event.httpMethod, Joi.string().lowercase().required().valid(['GET', 'POST']))
-      const method = v.value.toLowerCase()
-      if (v.error || !operations[operation][method]) {
-        throw new HttpProblem(new URIValue('https://github.com/ResourcefulHumans/rheactor-aws-lambda#Error'), `Unsupported action "${event.httpMethod} ${event.path}"`, 400)
+      if (!allowedMethods.test(event.httpMethod)) {
+        throw new HttpProblem(new URIValue('https://github.com/ResourcefulHumans/rheactor-aws-lambda#Error'), `Method not allowed: "${event.httpMethod}"`, 405)
+      }
+      const method = event.httpMethod.toLowerCase()
+      if (typeof operations[operation][method] === 'undefined') {
+        throw new HttpProblem(new URIValue('https://github.com/ResourcefulHumans/rheactor-aws-lambda#Error'), `Unsupported operation "${event.httpMethod} ${event.path}"`, 400)
       }
       const body = event.body ? JSON.parse(event.body) : {}
       return getOptionalToken(event, tokenSecretOrPrivateKey)
