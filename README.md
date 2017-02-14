@@ -1,5 +1,7 @@
 # rheactor-aws-lambda
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/ResourcefulHumans/rheactor-aws-lambda.svg)](https://greenkeeper.io/)
+
 [![npm version](https://img.shields.io/npm/v/@resourcefulhumans/rheactor-aws-lambda.svg)](https://www.npmjs.com/package/@resourcefulhumans/rheactor-aws-lambda)
 [![Build Status](https://travis-ci.org/ResourcefulHumans/rheactor-aws-lambda.svg?branch=master)](https://travis-ci.org/ResourcefulHumans/rheactor-aws-lambda)
 [![monitored by greenkeeper.io](https://img.shields.io/badge/greenkeeper.io-monitored-brightgreen.svg)](http://greenkeeper.io/) 
