@@ -13,6 +13,14 @@ describe('api', () => {
     it('should return true if correct content-type is provided', () => {
       expect(checkContentType({headers: {'Content-type': contentType}}, contentType)).to.equal(true)
     })
+    it('should return true if correct content-type is provided with encoding in utf-8', () => {
+      expect(checkContentType({headers: {'Content-type': `${contentType}; charset=utf-8`}}, contentType)).to.equal(true)
+    })
+    it('should throw an exception if a different encoding then UTF-8 is passed', () => {
+      expect(() => {
+        checkContentType({headers: {'Content-type': `${contentType};charset=ISO-8859-4`}}, contentType)
+      }).to.throw('Unsupported encoding: "ISO-8859-4", only UTF-8 is supported.')
+    })
     it('should throw an exception if no headers passed', () => {
       expect(() => {
         checkContentType({}, contentType)

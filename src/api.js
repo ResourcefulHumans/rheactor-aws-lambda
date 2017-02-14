@@ -28,8 +28,14 @@ export function checkContentType (event, expectedContentType) {
   if (!ctype) {
     throw new Error('Must provide Content-Type.')
   }
-  if (ctype.toLowerCase() !== expectedContentType.toLowerCase()) {
-    throw new Error(`Unsupported content type: "${ctype}".`)
+  const splitted = ctype.split(';', 2)
+  const type = splitted[0]
+  if (type.toLowerCase() !== expectedContentType.toLowerCase()) {
+    throw new Error(`Unsupported content type: "${type}".`)
+  }
+  if (splitted.length > 1) {
+    const match = splitted[1].match(/charset=([^ ]+)/)
+    if (match[1] && match[1].toLowerCase() !== 'utf-8') throw new Error(`Unsupported encoding: "${match[1]}", only UTF-8 is supported.`)
   }
   return true
 }
