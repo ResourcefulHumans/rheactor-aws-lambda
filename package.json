@@ -31,20 +31,15 @@
   },
   "homepage": "https://github.com/ResourcefulHumans/rheactor-aws-lambda#readme",
   "peerDependencies": {
-    "@resourcefulhumans/rheactor-errors": "1.x",
-    "aws-sdk": "^2.9.0",
     "bluebird": "^3.4.7",
-    "glob": "^7.1.1",
     "joi": "^10.2.1",
     "jsonwebtoken": "^7.2.1",
-    "moment": "^2.17.1",
-    "request": "^2.79.0",
-    "request-promise": "^4.1.1",
     "rheactor-models": "3.x >=3.2.2",
     "rheactor-value-objects": "9.x >=9.0.1",
     "tcomb": "^3.2.16"
   },
   "devDependencies": {
+    "@resourcefulhumans/rheactor-errors": "1.x",
     "babel-cli": "^6.22.2",
     "babel-eslint": "^7.1.1",
     "babel-preset-env": "^1.1.8",
