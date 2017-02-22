@@ -2,7 +2,7 @@
 
 import {expect} from 'chai'
 import {handler, apiIndexOperation, statusOperation} from '../../src'
-import {Status} from 'rheactor-models'
+import {Status, Index, Link} from 'rheactor-models'
 import {URIValue} from 'rheactor-value-objects'
 import Promise from 'bluebird'
 
@@ -11,10 +11,10 @@ const environment = 'testing'
 const headers = {'Content-type': contentType}
 const mountURL = new URIValue('https://api.example.com/')
 const operations = {
-  index: apiIndexOperation(mountURL, {
-    'status': Status.$context,
-    'foo': Status.$context
-  }),
+  index: apiIndexOperation(new Index([
+    new Link(mountURL.append('status'), Status.$context),
+    new Link(mountURL.append('foo'), Status.$context)
+  ])),
   status: statusOperation('0.0.0', environment, Date.now())
 }
 

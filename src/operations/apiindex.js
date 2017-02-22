@@ -1,24 +1,13 @@
 import Promise from 'bluebird'
-import {URIValue, URIValueType} from 'rheactor-value-objects'
-import {Object as ObjectType} from 'tcomb'
-import {Link, Index} from 'rheactor-models'
+import {IndexType} from 'rheactor-models'
 
 /**
- * @param {URIValue} mountURL
- * @param {object} routes
+ * @param {Index} index
  * @return {Function}
  */
-export const apiIndexOperation = (mountURL, routes) => {
-  URIValueType(mountURL)
-  ObjectType(routes)
+export const apiIndexOperation = (index) => {
+  IndexType(index, ['apiIndexOperation()', 'index:Index'])
   return {
-    get: () => Promise.try(() => {
-      const links = []
-      const u = mountURL.slashless().toString()
-      for (const k in routes) {
-        links.push(new Link(new URIValue([u, k].join('/')), routes[k]))
-      }
-      return new Index(links)
-    })
+    get: () => Promise.resolve(index)
   }
 }
