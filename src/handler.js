@@ -8,7 +8,7 @@ import {URIValue} from 'rheactor-value-objects'
  * @param {String} environment
  * @param {String} tokenSecretOrPrivateKey
  * @param {Array.<Function>} operations
- * @param {{headers: object, path: string, httpMethod: string, body: string, queryStringParameters: object}} event
+ * @param {{headers: object, path: string, httpMethod: string, body: string, queryStringParameters: object, requestContext: object}} event
  * @param {object} context
  * @param {function} callback
  */
@@ -48,7 +48,7 @@ export function handler (contentType, environment, tokenSecretOrPrivateKey, oper
       }
       const body = event.body ? JSON.parse(event.body) : {}
       return getOptionalToken(event, tokenSecretOrPrivateKey)
-        .then(token => operations[operation][method](body, parts, token, event.queryStringParameters))
+        .then(token => operations[operation][method](body, parts, token, event.queryStringParameters, event.requestContext))
     })
     .then(res => done(null, res))
     .catch(err => done(err))
