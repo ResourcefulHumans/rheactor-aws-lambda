@@ -34,7 +34,7 @@
     "bluebird": "^3.4.7",
     "jsonwebtoken": "^7.2.1",
     "rheactor-models": "3.x >=3.2.2",
-    "rheactor-value-objects": "^9.1.0",
+    "rheactor-value-objects": "^10.0.0",
     "tcomb": "^3.2.16"
   },
   "devDependencies": {
