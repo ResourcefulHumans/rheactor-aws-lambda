@@ -9,3 +9,5 @@
 [![Code Climate](https://codeclimate.com/github/ResourcefulHumans/rheactor-aws-lambda/badges/gpa.svg)](https://codeclimate.com/github/ResourcefulHumans/rheactor-aws-lambda)
 
 Core components for RESTful AWS lambda endpoints.
+
+See [`rheactor-image-service`](https://github.com/ResourcefulHumans/rheactor-image-service/blob/master/package.json) for a concrete usage example.
